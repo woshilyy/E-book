@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        body {
+            font-family: '楷体';
+        }
+        
+        .wrap {
+            padding-top: .3rem;
+            background-color: lightyellow;
+            position: relative;
+            color: #000;
+            padding-bottom: .5rem;
+        }
+        
+        p {
+            text-indent: 2em;
+            padding: .05rem .15rem;
+            line-height: 1.5;
+            /* border-bottom: 1px solid #ccc; */
+        }
+        
+        h3 {
+            padding-top: .2rem;
+            text-align: center;
+        }
+        
+        .top {
+            display: none;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: .3rem;
+            line-height: .3rem;
+            color: #fff;
+            background-color: #000;
+            font-size: .18rem;
+        }
+        
+        .bottom {
+            width: 100%;
+            background-color: #000;
+            position: fixed;
+            bottom: .3rem;
+            display: none;
+        }
+        
+        .f-s span,
+        .bgc span {
+            font-size: .16rem;
+            height: .3rem;
+            line-height: .3rem;
+            text-align: center;
+            color: #fff;
+            padding-left: .15rem;
+            margin-top: .15rem;
+        }
+        
+        .f-s {
+            padding-top: .15rem;
+        }
+        
+        .f-s button {
+            text-align: center;
+            color: #fff;
+            width: .7rem;
+            height: .3rem;
+            line-height: .3rem;
+            background-color: transparent;
+            border: 1px solid #fff;
+            border-radius: .25rem;
+            cursor: pointer;
+            outline: none;
+            font-size: .16rem;
+        }
+        
+        .bgc {
+            width: 100%;
+            margin-top: .1rem;
+            position: relative;
+            margin-bottom: .15rem;
+        }
+        
+        .bgc span {
+            display: inline-block;
+            width: .15rem;
+            height: .3rem;
+            border-radius: 50%;
+        }
+        
+        .bgc span:nth-child(1) {
+            width: .32rem;
+            position: absolute;
+        }
+        
+        .bgc span:nth-child(2) {
+            background-color: lightcoral;
+            margin: 0 .01rem 0 .6rem;
+        }
+        
+        .bgc span:nth-child(3) {
+            background-color: lightblue;
+            margin-right: .1rem;
+        }
+        
+        .bgc span:nth-child(4) {
+            background-color: lightgreen;
+            margin-right: .1rem;
+        }
+        
+        .bgc span:nth-child(5) {
+            background-color: #000;
+            border: 1px solid #fff;
+        }
+        
+        .footer {
+            width: 100%;
+            height: .3rem;
+            background-color: #000;
+            position: fixed;
+            bottom: 0;
+            display: none;
+        }
+        
+        ul {
+            list-style: none;
+            width: 100%;
+            border: 1px solid #fff;
+        }
+        
+        li {
+            float: left;
+            width: 33%;
+            text-align: center;
+            color: #fff;
+            border-right: 1px solid #fff;
+            line-height: .3rem;
+        }
+        
+        li:last-child {
+            border-right: none;
+        }
+        
+        .tab {
+            display: flex;
+            justify-content: space-around;
+            /* display: none; */
+        }
+        
+        .tab button {
+            display: inline-block;
+            width: .9rem;
+            height: .3rem;
+            line-height: .3rem;
+            border: none;
+            background-color: #000;
+            color: #fff;
+            font-size: .16rem;
+            text-align: center;
+            border-radius: .25rem;
+        }
+        
+        .topest {
+            width: 100%;
+            height: 2.8rem;
+            position: fixed;
+            top: 25%;
+            z-index: 100;
+        }
+        
+        hr {
+            border-color: #000;
+        }
+        
+        .night1 {
+            max-width: 6.4rem;
+            padding-top: .3rem;
+            color: #fff;
+            background-color: #000;
+            position: relative;
+        }
+        
+        .curent {
+            color: lightcoral;
+        }
+        
+        .main {
+            width: 6.4rem;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="topest">
+        </div>
+        <div class="top">&lt;返回书架</div>
+        <div class="wrap">
+        </div>
+        <div class="tab">
+            <button class="prev">上一篇</button>
+            <button class="next">下一篇</button>
+        </div>
+        <div class="bottom">
+            <div class="f-s">
+                <span>字号</span>
+                <button class="f_large">大</button>
+                <button class="f_small">小</button></div>
+
+            <div class="bgc">
+                <span>背景</span>
+                <span class="bgc1"></span>
+                <span class="bgc2"></span>
+                <span class="bgc3"></span>
+                <span class="bgc4"></span>
+            </div>
+
+        </div>
+        <div class="footer">
+            <ul>
+                <li>背景</li>
+                <li class="font1">字体</li>
+                <li class="night">夜间</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="lib/zepto.min.js"></script>
+    <script>
+        window.jQuery = $;
+    </script>
+    <script src="js/jquery.base64.js"></script>
+    <script src="js/jquery.jsonp.js"></script>
+    <script src="js/flexible.js"></script>
+
+    <script>
+        (function() {
+
+            var Util = (
+                function() {
+                    var getJSONP = function(url, callback) {
+                        return $.jsonp({
+                            url: url,
+                            cache: true,
+                            callback: 'duokan_fiction_chapter',
+                            success: function(result) {
+                                var data = $.base64.decode(result);
+                                var json = decodeURIComponent(escape(data));
+                                callback(json);
+                            }
+                        })
+                    }
+                    var prefix = 'html5_reader';
+                    var StorageGetter = function(key) {
+                        return localStorage.getItem(prefix + key);
+                    };
+                    var StorageSetter = function(key, val) {
+                        return localStorage.setItem(prefix + key, val);
+                    }
+                    return {
+                        StorageGetter: StorageGetter,
+                        StorageSetter: StorageSetter,
+                        getJSONP: getJSONP
+
+                    }
+
+                })();
+            var Dom = {
+                top: $('.top'),
+                bottom: $('.bottom'),
+                footer: $('.footer'),
+                // bgc1: $("#bgc1"),
+                // bgc2: $("#bgc2"),
+                // bgc3: $("#bgc3"),
+                // bgc4: $("#bgc4")s,
+            }
+
+            var Win = $(window);
+            var Doc = $(document);
+            var readerUI;
+            var readerModel;
+            var initFontSize = Util.StorageGetter("fontSize");
+            initFontSize = parseInt(initFontSize);
+            if (!initFontSize) {
+                initFontSize = 18;
+            }
+            $(".wrap").css("fontSize", initFontSize);
+
+            function main() {
+                //整个项目的入口函数
+                readerModel = ReaderModle();
+                readerUI = ReaderFrameUI($(".wrap"));
+                readerModel.init(function(data) {
+                    readerUI(data);
+                });
+                EventHandle();
+            }
+
+            function ReaderModle() {
+                //实现阅读器与数据交互的方法
+                var chapter_id;
+                var chapter_total;
+                var init = function(UIcallback) {
+                    getFuctionInfo(function() {
+                        getContent(chapter_id, function(data) {
+                            UIcallback && UIcallback(data);
+                        })
+                    })
+                }
+                var getFuctionInfo = function(callback) {
+                    $.get('data/chapter.json', function(data) {
+                        //获取章节信息之后的回调
+                        chapter_id = Util.StorageGetter('last_chapter_id');
+                        if (chapter_id == null) {
+                            chapter_id = data.chapters[1].chapter_id;
+                        }
+                        chapter_total = data.chapters.length;
+                        callback && callback();
+                    }, 'json');
+                }
+                var getContent = function(chapter_id, callback) {
+                    $.get("data/data" + chapter_id + '.json', function(data) {
+                        if (data.result == 0) {
+                            var url = data.jsonp;
+                            Util.getJSONP(url, function(data) {
+
+                                callback && callback(data);
+                            });
+                        }
+                    }, 'json')
+                }
+
+                var prevChapter = function(UIcallback) {
+                    chapter_id = parseInt(chapter_id, 10);
+                    if (chapter_id == 0) {
+                        return false;
+                    }
+                    chapter_id -= 1;
+                    getContent(chapter_id, UIcallback);
+                    Util.StorageSetter('last_chapter_id', chapter_id);
+                }
+                var nextChapter = function(UIcallback) {
+                    chapter_id = parseInt(chapter_id, 10);
+                    if (chapter_id == chapter_total) {
+                        return false;
+                    }
+                    chapter_id += 1;
+                    getContent(chapter_id, UIcallback);
+                    Util.StorageSetter('last_chapter_id', chapter_id);
+                }
+
+                return {
+                    init: init,
+                    prevChapter: prevChapter,
+                    nextChapter: nextChapter
+                }
+            }
+
+
+            function ReaderFrameUI(wrap) {
+                //渲染基本的UI结构
+                function parseChapterData(jsonData) {
+                    var jsonObj = JSON.parse(jsonData);
+                    var html = "<h3>" + jsonObj.t + "</h3>";
+                    for (var i = 0; i < jsonObj.p.length; i++) {
+                        html += "<p>" + jsonObj.p[i] + "</p>";
+                    }
+                    return html;
+                }
+                return function(data) {
+                    wrap.html(parseChapterData(data));
+                }
+            }
+
+
+            function EventHandle() {
+                $(".topest").click(function() {
+                    if (Dom.top.css("display") == "none") {
+                        Dom.top.show();
+                        Dom.footer.show();
+                    } else {
+                        Dom.top.hide();
+                        Dom.bottom.hide();
+                        Dom.footer.hide();
+                    }
+
+                    // alert("true");
+                    // $('.footer').css("display", "block");
+                    // $('.top').css("display", "block");
+                });
+                Win.scroll(function() {
+                    Dom.top.hide();
+                    Dom.bottom.hide();
+                    Dom.footer.hide();
+                });
+                $(".prev").click(function() {
+                    readerModel.prevChapter(function(data) {
+                        readerUI(data);
+                    });
+                });
+                $(".next").click(function() {
+                    readerModel.nextChapter(function(data) {
+                        readerUI(data);
+                    });
+                })
+                $(".font1").click(function() {
+                    if ($(".bottom").css('display') == 'none') {
+                        $(".bottom").show();
+                        $(this).addClass("curent");
+                    } else {
+                        $(".bottom").hide();
+                        $(this).removeClass("curent");
+                    }
+                });
+
+                $(".f_large").click(function() {
+                    if (initFontSize >= 22) {
+                        return false;
+                    }
+                    initFontSize += 1;
+                    $(".wrap").css("fontSize", initFontSize);
+                    Util.StorageSetter("fontSize", initFontSize);
+                })
+                $(".f_small").click(function() {
+                    if (initFontSize <= 14) {
+                        return;
+                    }
+                    initFontSize -= 1;
+                    $(".wrap").css("fontSize", initFontSize);
+                    Util.StorageSetter("fontSize", initFontSize);
+                })
+
+
+
+
+                $(".bgc1").click(function() {
+                    $(".wrap").css({
+                        "backgroundColor": "lightcoral",
+                        "color": "#000"
+                    });
+
+                });
+                $(".bgc2").click(function() {
+                    $(".wrap").css({
+                        "backgroundColor": "lightblue",
+                        "color": "#000"
+                    });
+                });
+                $(".bgc3").click(function() {
+                    $(".wrap").css({
+                        "backgroundColor": "lightgreen",
+                        "color": "#000"
+                    });
+                });
+                $(".bgc4").click(function() {
+                    $(".wrap").css({
+                        "backgroundColor": "#000",
+                        "color": "lightyellow"
+                    });
+                });
+                $(".night").click(function() {
+                    $(".wrap").css({
+                        "backgroundColor": "#000",
+                        "color": "lightyellow"
+                    });
+                    $("hr").css("borderColor", "#fff")
+                    if ($(".wrap").css("color") == '#fff') {
+
+                        $(".night").removeClass("curent");
+                    } else {
+                        $(".night").addClass("curent");
+                    }
+
+                });
+            }
+            main();
+        })();
+    </script>
+</body>
+
+</html>
